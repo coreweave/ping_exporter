@@ -22,10 +22,10 @@ release-chart:
     changes:
     - dist/charts/ping-exporter/**/*
   script:
-    - export RELEASE_VERSION=`grep version helm/Chart.yaml | cut -d ":" -f 2 | head -n1 | xargs`
+    - export RELEASE_VERSION=`grep version dist/charts/ping-exporter/Chart.yaml | cut -d ":" -f 2 | head -n1 | xargs`
     - apk add git
     - helm plugin install https://github.com/chartmuseum/helm-push.git
     - helm repo add chart_repo $CHART_REPO_URL --username $CHART_REPO_USER --password $CHART_REPO_PASS
-    - helm dependency build ./helm
-    - helm package ./helm --version "$RELEASE_VERSION"
-    - helm cm-push ./helm chart_repo --version "$RELEASE_VERSION" -f
+    - helm dependency build ./dist/charts/ping-exporter
+    - helm package ./dist/charts/ping-exporter --version "$RELEASE_VERSION"
+    - helm cm-push ./dist/charts/ping-exporter chart_repo --version "$RELEASE_VERSION" -f
