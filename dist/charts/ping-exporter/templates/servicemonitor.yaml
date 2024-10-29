@@ -13,5 +13,5 @@ spec:
   - port: http
     interval: 60s
     relabelings:
-    {{ .Values.serviceMonitor.relabelings | toYaml | nindent 6 }}
+    {{- .Values.serviceMonitor.relabelings | toYaml | nindent 6 }}
 {{- end }}
