@@ -6,4 +6,17 @@ metadata:
     {{- include "ping_exporter.labels" . | nindent 4 }}
 data:
   config.yml: |
-{{ toYaml .Values.config | indent 4 }}
+    ping:
+    {{- .Values.config.ping | toYaml | nindent 6 }}
+    dns:
+    {{- .Values.config.dns | toYaml | nindent 6 }}
+    targets:
+    {{- $targets := .Values.config.targets -}}
+    {{- range $targets }}
+      - {{ . }}
+    {{- end -}}
+    {{- if .Values.extraTargets -}}
+    {{- range .Values.extraTargets }}
+      - {{ . }}
+    {{- end -}}
+    {{- end -}}
