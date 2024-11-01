@@ -11,12 +11,7 @@ data:
     dns:
     {{- .Values.config.dns | toYaml | nindent 6 }}
     targets:
-    {{- $targets := .Values.config.targets -}}
-    {{- range $targets }}
-      - {{ . }}
-    {{- end -}}
+    {{- .Values.config.targets | toYaml | nindent 6 }}
     {{- if .Values.extraTargets -}}
-    {{- range .Values.extraTargets }}
-      - {{ . }}
-    {{- end -}}
+    {{- .Values.extraTargets | toYaml | nindent 6 }}
     {{- end -}}
