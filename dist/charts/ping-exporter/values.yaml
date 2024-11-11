@@ -105,8 +105,9 @@ config:
     payload-size: 120
 
 # Create a podMonitor resource to be consumed by Prometheus Operator
-podMonitor:
+monitoring:
   enabled: false
+  type: PodMonitor
   relabelings:
   - action: labeldrop
     regex: pod
