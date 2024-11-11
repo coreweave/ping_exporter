@@ -104,8 +104,8 @@ config:
     history-size: 42
     payload-size: 120
 
-# Create a serviceMonitor resource to be consumed by Prometheus Operator
-serviceMonitor:
+# Create a podMonitor resource to be consumed by Prometheus Operator
+podMonitor:
   enabled: false
   relabelings:
   - action: labeldrop
