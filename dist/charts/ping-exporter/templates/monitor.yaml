@@ -1,0 +1,25 @@
+{{- if .Values.monitoring.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: {{ if eq .Values.monitoring.type "PodMonitor" }}PodMonitor{{ else }}ServiceMonitor{{ end }}
+metadata:
+  name: {{ include "ping_exporter.fullname" . }}
+  labels:
+    {{- include "ping_exporter.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "ping_exporter.selectorLabels" . | nindent 6 }}
+  {{- if eq .Values.monitoring.type "PodMonitor" }}
+  podMetricsEndpoints:
+    - port: http
+      interval: 60s
+      relabelings:
+    {{- .Values.monitoring.relabelings | toYaml | nindent 6 }}
+  {{- else }}
+  endpoints:
+    - port: http
+      interval: 60s
+      relabelings:
+    {{- .Values.monitoring.relabelings | toYaml | nindent 6 }}
+  {{- end }}
+{{- end }}
