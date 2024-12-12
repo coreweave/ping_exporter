@@ -15,3 +15,6 @@ data:
     {{- if .Values.extraTargets -}}
     {{- .Values.extraTargets | toYaml | nindent 6 }}
     {{- end -}}
+    {{- if .Values.publicTargetsEnabled -}}
+    {{- .Values.publicTargets | toYaml | nindent 6 }}
+    {{- end -}}
