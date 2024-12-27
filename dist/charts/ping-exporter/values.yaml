@@ -29,6 +29,9 @@ podLabels: {}
 # Rollout strategy, could be "Recreate" or "RollingUpdate"
 strategy:
   type: RollingUpdate
+  
+psp:
+  enabled: false
 
 podSecurityContext: {}
   # fsGroup: 2000
