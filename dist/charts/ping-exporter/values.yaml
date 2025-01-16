@@ -13,6 +13,9 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+networkPolicy:
+  create: false
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
@@ -31,7 +34,7 @@ strategy:
   type: RollingUpdate
   
 psp:
-  enabled: false
+  create: false
 
 podSecurityContext: {}
   # fsGroup: 2000
