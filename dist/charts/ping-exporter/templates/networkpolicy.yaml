@@ -1,0 +1,15 @@
+{{- if .Values.networkPolicy.create -}}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "ping_exporter.fullname" . }}
+spec:
+  egress:
+  - {}
+  ingress:
+  - {}
+  podSelector: {}
+  policyTypes:
+  - Egress
+  - Ingress
+{{- end }}

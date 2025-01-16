@@ -31,8 +31,10 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "ping_exporter.serviceAccountName" . }}
+      {{- if not .Values.psp.create }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- end }}
       volumes:
         - name: config
           configMap:
@@ -43,7 +45,11 @@ spec:
             - name: config
               mountPath: "/config"
           securityContext:
+            {{- if .Values.psp.create }}
+            privileged: true
+            {{- else }}
             {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default (print "v" .Chart.AppVersion) }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["/app/ping_exporter"]
